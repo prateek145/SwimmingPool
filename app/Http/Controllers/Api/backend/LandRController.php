@@ -43,7 +43,7 @@ class LandRController extends ResponseController
 
             $data = [
                 'user' => $user,
-                'toke' => $user->createToken("API TOKEN")->plainTextToken
+                'token' => $user->createToken("API TOKEN")->plainTextToken
             ];
 
             return $this->sendResponse($data, 'User Logged In Successfully', 200);
