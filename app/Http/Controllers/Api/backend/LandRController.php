@@ -18,20 +18,18 @@ class LandRController extends ResponseController
     function login(Request $request)
     {
         try {
-            $validateUser = Validator::make(
-                $request->all(),
+            $data = $request->all();
+            $validator = Validator::make(
+                $data,
                 [
                     'email' => 'required|email',
-                    'password' => 'required'
-                ]
+                    'password' => 'required|min:8'
+                ],
+                []
             );
 
-            if ($validateUser->fails()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'validation error',
-                    'errors' => $validateUser->errors()
-                ], 401);
+            if ($validator->fails()) {
+                return response(['error' => $validator->errors(),  'responseCode' => 403]);
             }
 
             if (!Auth::attempt($request->only(['email', 'password']))) {
