@@ -42,7 +42,7 @@ class LandRController extends ResponseController
             $user = User::where('email', $request->email)->first();
 
             $data = [
-                'email' => $user->email,
+                'user' => $user,
                 'toke' => $user->createToken("API TOKEN")->plainTextToken
             ];
 
