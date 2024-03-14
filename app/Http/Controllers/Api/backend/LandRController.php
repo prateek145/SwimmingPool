@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
+
 class LandRController extends ResponseController
 {
     //
@@ -56,21 +57,18 @@ class LandRController extends ResponseController
     function register(Request $request)
     {
         try {
-            $validateUser = Validator::make(
-                $request->all(),
+            $data = $request->all();
+            $validator = Validator::make(
+                $data,
                 [
-                    'name' => 'required',
-                    'email' => 'required|email|unique:users,email',
-                    'password' => 'required'
-                ]
+                    'email' => 'required|email',
+                    'password' => 'required|min:8'
+                ],
+                []
             );
 
-            if ($validateUser->fails()) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'validation error',
-                    'errors' => $validateUser->errors()
-                ], 401);
+            if ($validator->fails()) {
+                return response(['error' => $validator->errors(),  'responseCode' => 403]);
             }
 
             $user = User::create([
