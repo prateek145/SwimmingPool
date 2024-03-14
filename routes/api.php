@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\backend\AllocatePackageController;
 use App\Http\Controllers\Api\backend\AttendanceController;
 use App\Http\Controllers\Api\backend\GroupController;
 use App\Http\Controllers\Api\backend\HomeController;
+use App\Http\Controllers\Api\backend\LandRController;
 use App\Http\Controllers\Api\backend\MemberSlotController;
 use App\Http\Controllers\Api\backend\PackageController;
 use App\Http\Controllers\Api\backend\PLaccountController;
@@ -23,11 +24,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
 
-Route::group(['prefix' => 'v1'], function(){
+Route::group(['prefix' => 'v1', 'middleware' => 'auth:sanctum'], function(){
     Route::resource('members', UserController::class);
     Route::resource('packages', PackageController::class);
     Route::resource('groups', GroupController::class);
@@ -46,5 +44,16 @@ Route::group(['prefix' => 'v1'], function(){
     Route::get('home', [HomeController::class, 'home']);
     Route::get('memberBill/{id}', [HomeController::class, 'memberBill']);
 
+    //login functionality
+    Route::post('login', [LandRController::class, 'login']);
+    Route::post('register', [LandRController::class, 'register']);
+
+});
+
+Route::group(['prefix' => 'v1'], function(){
+
+    //login functionality
+    Route::post('login', [LandRController::class, 'login']);
+    Route::post('register', [LandRController::class, 'register']);
 
 });
