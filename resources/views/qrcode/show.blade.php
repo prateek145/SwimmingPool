@@ -14,10 +14,19 @@
 
         <div class="card">
             <div class="card-header">
-                <h2>Simple QR Code</h2>
+                <h2>Member Details</h2>
             </div>
             <div class="card-body">
-                {{ QrCode::size(300)->generate(route('UserDetails', $id)) }}
+                Name - {{$member->name}}
+                Phone - {{$member->phone}}
+                Email - {{$member->email}}
+                Unique Id - {{$member->unique_id}}
+                Address - {{$member->address}}
+                Package Name - {{$member->package_name}}
+                Package Status - {{$member->package_status == 1 ? 'Active' : 'Inactive'}}
+                DOJ - {{$member->doj}}
+                Package Start Date - {{$member->package_start_date }}
+                Package End Date - {{$member->package_end_date }}
             </div>
         </div>
 

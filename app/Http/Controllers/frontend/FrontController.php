@@ -41,11 +41,10 @@ class FrontController extends Controller
 
     public function UserDetails($id){
         // $user = User::find($id);
-        $members = DB::table('users')
+        $member = DB::table('users')
         ->join('allocate_packages', 'users.id','=', 'allocate_packages.member_id')
         ->where("users.id",$id)
-        ->get();
-        dd($members);
-
+        ->first();
+        return view('qrcode.show', compact('member'));
     }
 }
