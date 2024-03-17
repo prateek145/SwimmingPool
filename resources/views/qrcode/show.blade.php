@@ -17,16 +17,16 @@
                 <h2>Member Details</h2>
             </div>
             <div class="card-body">
-                Name - {{$member->name}}
-                Phone - {{$member->phone}}
-                Email - {{$member->email}}
-                Unique Id - {{$member->unique_id}}
-                Address - {{$member->address}}
-                Package Name - {{$member->package_name}}
-                Package Status - {{$member->package_status == 1 ? 'Active' : 'Inactive'}}
-                DOJ - {{$member->doj}}
-                Package Start Date - {{$member->package_start_date }}
-                Package End Date - {{$member->package_end_date }}
+                Name - {{$member->name}}<br>
+                Phone - {{$member->phone}}<br>
+                Email - {{$member->email}}<br>
+                Unique Id - {{$member->unique_id}}<br>
+                Address - {{$member->address}}<br>
+                Package Name - {{$member->package_name}}<br>
+                Package Status - {{$member->package_status == 1 ? 'Active' : 'Inactive'}}<br>
+                DOJ - {{$member->doj}}<br>
+                Package Start Date - {{$member->package_start_date }}<br>
+                Package End Date - {{$member->package_end_date }}<br>
             </div>
         </div>
 
