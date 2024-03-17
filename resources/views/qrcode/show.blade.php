@@ -12,7 +12,7 @@
 
     <div class="container mt-4">
 
-        <div class="card">
+        <div class="card col-md-12">
             <div class="card-header">
                 <h2>Member Details</h2>
             </div>
@@ -29,11 +29,18 @@
                 Package End Date - {{$member->package_end_date }}<br>
             </div>
 
-            <div class="row">
-                <label for="">Present</label>
-                <input type="radio" name="attendance" value="1" id="">
-                <label for="">Absent</label>
-                <input type="radio" name="attendance" value="0" id="">
+            <div class="row col-md-12">
+                <div class="col-md-6 row">
+                    <label for="">Present</label>
+                    <input type="radio" name="attendance" value="1" id="">
+                </div>
+
+                <div class="col-md-6 row">
+                    <label for="">Absent</label>
+                    <input type="radio" name="attendance" value="0" id="">
+                </div>
+
+
             </div>
         </div>
 
