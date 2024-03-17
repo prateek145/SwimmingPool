@@ -22,7 +22,7 @@ class UserController extends ResponseController
     public function index()
     {
         try {
-            $members = User::where('status', 1)->latest()->get();
+            $members = User::where('status', 1)->where('role', '!=', 'admin')->latest()->get();
             $packages = Package::where('status', 1)->latest()->get();
             $slots = Slot::where('status', 1)->latest()->get();
 
