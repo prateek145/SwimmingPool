@@ -80,7 +80,7 @@
 </head>
 
 <body>
-    @vite('resources/js/app.js')
+    {{-- @vite('resources/js/app.js') --}}
     <div id="example">
         {{-- <home /> --}}
     </div>
