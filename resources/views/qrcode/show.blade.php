@@ -28,6 +28,13 @@
                 Package Start Date - {{$member->package_start_date }}<br>
                 Package End Date - {{$member->package_end_date }}<br>
             </div>
+
+            <div class="row">
+                <label for="">Present</label>
+                <input type="radio" name="attendance" value="1" id="">
+                <label for="">Absent</label>
+                <input type="radio" name="attendance" value="0" id="">
+            </div>
         </div>
 
     </div>
