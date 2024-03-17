@@ -41,7 +41,7 @@ class FrontController extends Controller
 
     public function UserDetails($id){
         $members = DB::table('users')
-        ->join('allocate_packages', 'users.id', 'allocate_packages.member_id')
+        ->join('allocate_packages', 'users.id','=', 'allocate_packages.member_id')
         ->find($id)
         ->get();
         dd($members);
