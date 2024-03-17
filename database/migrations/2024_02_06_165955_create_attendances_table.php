@@ -15,6 +15,10 @@ return new class extends Migration
             $table->id();
             $table->date('date')->nullable();
             $table->integer('member_id')->nullable();
+            $table->string('name')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
+            $table->string('comment')->nullable();
             $table->tinyInteger('attendance')->default(0);
             $table->timestamps();
         });

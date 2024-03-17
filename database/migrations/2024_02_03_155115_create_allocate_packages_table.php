@@ -14,9 +14,14 @@ return new class extends Migration
         Schema::create('allocate_packages', function (Blueprint $table) {
             $table->id();
             $table->integer('member_id')->nullable();
-            $table->integer('member_name')->nullable();
+            $table->string('member_name')->nullable();
             $table->integer('package_id')->nullable();
-            $table->integer('package_name')->nullable();
+            $table->string('package_name')->nullable();
+            $table->integer('package_status')->nullable();
+            $table->date('doj')->nullable();
+            $table->date('package_start_date')->nullable();
+            $table->date('package_end_date')->nullable();
+
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();

@@ -12,6 +12,7 @@ use App\Models\backend\Package;
 use App\Models\backend\Slot;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 
 class UserController extends ResponseController
 {
@@ -28,6 +29,7 @@ class UserController extends ResponseController
             $data['packages'] = $packages;
             $data['slots'] = $slots;
             $data['members'] = $members;
+            $data['url'] = Url::to('/');
             return $this->sendResponse($data, 'Members Fetched Successfully', 200);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage(), [], 402);
@@ -78,6 +80,17 @@ class UserController extends ResponseController
                 $data['image'] = $imageName;
             }
 
+            if ($request->document) {
+                # code...
+                $base64_document = $request->document; // your base64 encoded
+                @[$type, $file_data] = explode(';', $base64_document);
+                @[, $file_data] = explode(',', $file_data);
+                $documentName = time() . time() . '.' . 'png';
+                // file_put_contents($storagePath, base64_decode($file_data));
+                Storage::disk('public')->put($documentName, base64_decode($file_data));
+                $data['document'] = $documentName;
+            }
+
             $member = User::create($data);
             //allocate package
             $package = Package::find($request->package_id);
@@ -92,6 +105,7 @@ class UserController extends ResponseController
             $package_data['package_status'] = 0;
             $package_data['package_start_date'] = date("Y-m-d");
             $package_data['package_end_date'] = date("Y-m-d", strtotime('+'. $package->days .'days'));
+            // dd($package_data);
             $allocate_packages = AllocatePackage::create($package_data);
 
             //allocate slot
@@ -124,7 +138,12 @@ class UserController extends ResponseController
             $slot = Slot::find($user->slot->slot_id);
             if ($user->image) {
                 # code...
-                $user->image = asset('public/storage/'. $user->image);
+                $user->image = URL::to('/') . '/storage/'. $user->image ;
+            }
+
+            if ($user->document) {
+                # code...
+                $user->document = URL::to('/') . '/storage/'. $user->document ;
             }
 
             //packages and slots
@@ -184,6 +203,17 @@ class UserController extends ResponseController
                 // file_put_contents($storagePath, base64_decode($file_data));
                 Storage::disk('public')->put($imageName, base64_decode($file_data));
                 $data['image'] = $imageName;
+            }
+
+            if ($request->document) {
+                # code...
+                $base64_document = $request->document; // your base64 encoded
+                @[$type, $file_data] = explode(';', $base64_document);
+                @[, $file_data] = explode(',', $file_data);
+                $documentName = time() . time() . '.' . 'png';
+                // file_put_contents($storagePath, base64_decode($file_data));
+                Storage::disk('public')->put($documentName, base64_decode($file_data));
+                $data['document'] = $documentName;
             }
 
 

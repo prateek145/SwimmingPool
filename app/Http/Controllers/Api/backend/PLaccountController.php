@@ -14,6 +14,7 @@ use App\Models\backend\AllocatePackage;
 use App\Models\backend\Package;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 
 class PLaccountController extends ResponseController
 {
@@ -35,6 +36,7 @@ class PLaccountController extends ResponseController
             // dd($users);
             $data['pl_accounts'] = $pl_accounts;
             $data['users'] = $users;
+            $data['url'] = Url::to('/');
             // dd($pl_accounts);
             return $this->sendResponse($data, 'PL account Fetched Successfully', 200);
         } catch (\Exception $e) {
@@ -104,11 +106,12 @@ class PLaccountController extends ResponseController
     public function show(string $id)
     {
         try {
+            // dd($id);
             $pl_account = PLaccount::find($id);
             $users = User::latest()->get();
-
             $data['pl_account'] = $pl_account;
             $data['users'] = $users;
+            // dd($data);
             return $this->sendResponse($data, 'P&L account Fetched Successfully', 200);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage(), [], 402);

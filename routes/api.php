@@ -26,6 +26,11 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::group(['prefix' => 'v1', 'middleware' => 'auth:sanctum'], function(){
+
+
+});
+
+Route::group(['prefix' => 'v1'], function(){
     Route::resource('members', UserController::class);
     Route::resource('packages', PackageController::class);
     Route::resource('groups', GroupController::class);
@@ -47,11 +52,7 @@ Route::group(['prefix' => 'v1', 'middleware' => 'auth:sanctum'], function(){
     //login functionality
     Route::post('login', [LandRController::class, 'login']);
     Route::post('register', [LandRController::class, 'register']);
-
-});
-
-Route::group(['prefix' => 'v1'], function(){
-
+    
     //login functionality
     Route::post('login', [LandRController::class, 'login']);
     Route::post('register', [LandRController::class, 'register']);

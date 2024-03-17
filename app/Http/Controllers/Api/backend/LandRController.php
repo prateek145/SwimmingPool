@@ -33,10 +33,7 @@ class LandRController extends ResponseController
             }
 
             if (!Auth::attempt($request->only(['email', 'password']))) {
-                return response()->json([
-                    'status' => false,
-                    'message' => 'Email & Password does not match with our record.',
-                ], 401);
+                return $this->sendError('Email & Password does not match with our record.', [], 401);
             }
 
             $user = User::where('email', $request->email)->first();

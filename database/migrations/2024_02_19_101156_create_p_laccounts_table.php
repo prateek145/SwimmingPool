@@ -15,6 +15,12 @@ return new class extends Migration
             $table->id();
             $table->string('amount')->nullable();
             $table->date('date')->nullable();
+            $table->string('transaction_type')->nullable();
+            $table->string('name')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
+            $table->longText('description')->nullable();
+            $table->integer('user_id')->nullable();
             $table->integer('created_by')->nullable();
             $table->integer('updated_by')->nullable();
             $table->timestamps();

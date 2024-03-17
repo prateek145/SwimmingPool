@@ -8,6 +8,8 @@ use App\Models\backend\Slot;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
+
 
 class FrontController extends Controller
 {
@@ -18,7 +20,7 @@ class FrontController extends Controller
         $slot = Slot::find($user->slot->slot_id);
         if ($user->image) {
             # code...
-            $user->image = asset('public/storage/'. $user->image);
+            $user->image = URL::to('/') . '/storage/'. $user->image;
         }
 
         //packages and slots
@@ -31,7 +33,8 @@ class FrontController extends Controller
         $data['user'] = $user;
         $data['package'] = $package;
         $data['slot'] = $slot;
-        $data['maxi_pool'] = asset('public/backend/assets/img/maxipool.jpg');
+        $data['maxi_pool'] = URL::to('/') . '/backend/assets/img/maxipool.jpg';
+        $data['url'] = URL::to('/');
         // dd($data);
         return view('frontend.generateid', compact('data','id'));
     }

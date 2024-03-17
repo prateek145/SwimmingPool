@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Api\backend\ResponseController;
 use App\Models\backend\PLaccount;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\URL;
+
 
 class HomeController extends ResponseController
 {
@@ -30,6 +32,7 @@ class HomeController extends ResponseController
             $data['total_members'] = $total_members;
             $data['total_packages'] = $total_packages;
             $data['total_slots'] = $total_slots;
+            $data['url'] = URL::to('/');
             // dd($data);
             return $this->sendResponse($data, 'Allocate Packages Fetched Successfully', 200);
         } catch (\Exception $e) {

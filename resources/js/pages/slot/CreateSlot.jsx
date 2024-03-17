@@ -50,9 +50,7 @@ function SlotCreate() {
             status: status,
         });
 
-        console.log(result);
-
-        if (result.data.responseCode == 200) {
+        if (result.data.responseCode === 200) {
             toast.success("Success!! Slot has been Created.", { position: "bottom-right" });
             set_name("");
             set_start_time("");
@@ -60,7 +58,7 @@ function SlotCreate() {
             set_status("");
             getSlots();
 
-        } else if (result.data.responseCode == 403) {
+        } else if (result.data.responseCode === 403) {
             set_name_error(result.data.error.name);
             set_start_time_error(result.data.error.start_time);
             set_end_time_error(result.data.error.end_time);
