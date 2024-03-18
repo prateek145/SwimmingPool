@@ -28,7 +28,7 @@ class AttendanceController extends ResponseController
             ->get();
             $data['attendance'] = Attendance::whereDate('date', date('Y-m-d'))->where('attendance', 1)->pluck('member_id');
 
-            // dd($data['attendance'], date('d-m-Y'));
+            dd($data['attendance'], date('d-m-Y'));
             return $this->sendResponse($data, 'Attendance Fetched Successfully', 200);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage(), [], 402);
