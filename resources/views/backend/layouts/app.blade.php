@@ -30,7 +30,7 @@
 
     <!-- Template Main CSS File -->
     <link href="{{asset('public/backend/assets/css/style.css')}}" rel="stylesheet">
-    @vite('resources/js/app.js')
+    {{-- @vite('resources/js/app.js') --}}
 </head>
 
 <body>
