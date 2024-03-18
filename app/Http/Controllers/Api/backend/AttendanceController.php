@@ -23,12 +23,10 @@ class AttendanceController extends ResponseController
     public function index()
     {
         try {
-            $data['members'] = DB::table('users')
-            ->join('attendances', 'attendances.member_id', '=', 'users.id')
-            ->get();
+            $data['members'] = User::where('role', '!=', 'admin')->get();
             $data['attendance'] = Attendance::whereDate('date', date('Y-m-d'))->where('attendance', 1)->pluck('member_id');
 
-            dd($data['attendance'], date('d-m-Y'));
+            // dd($data['attendance'], date('d-m-Y'));
             return $this->sendResponse($data, 'Attendance Fetched Successfully', 200);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage(), [], 402);
