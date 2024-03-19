@@ -32,10 +32,13 @@ class AttendanceController extends ResponseController
             // ->get();
 
             $data['members'] = DB::table('users')
-            ->where('role','!=', 'admin')
-            ->join('attendances', 'attendances.member_id', '=', 'users.id')
-            ->where('attendances.date', '=', date("Y-m-d"))
-            ->get();
+                ->leftJoin('attendances', 'users.id', '=', 'attendances.member_id')
+                ->where(function ($query) {
+                    $query->where('attendances.date', date('Y-m-d'))
+                        ->orWhereNull('attendances.date');
+                })
+                ->get();
+
 
             $data['attendance'] = Attendance::whereDate('date', date('Y-m-d'))->where('attendance', 1)->pluck('member_id');
 
@@ -85,7 +88,7 @@ class AttendanceController extends ResponseController
                 # code...
                 $attendance = Attendance::create($data);
             }
-            
+
 
             return $this->sendResponse($attendance, 'Allocate Date to User Successfully', 200);
         } catch (\Exception $e) {
@@ -125,7 +128,8 @@ class AttendanceController extends ResponseController
         //
     }
 
-    public function attendance_export(){
+    public function attendance_export()
+    {
         try {
             // dd('prateek');
             $members = User::latest()->get();
@@ -156,5 +160,4 @@ class AttendanceController extends ResponseController
         $file = storage_path() . '/app/attendanceExport.xls';
         return \Response::download($file, 'attendanceExport.xls');
     }
-
 }
