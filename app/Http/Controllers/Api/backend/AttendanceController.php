@@ -24,6 +24,7 @@ class AttendanceController extends ResponseController
     {
         try {
             $data['members'] = User::where('role', '!=', 'admin')->latest()->get();
+            $data['comments'] = Attendance::where('date', date('Y-m-d'))->latest()->get();
             $data['attendance'] = Attendance::whereDate('date', date('Y-m-d'))->where('attendance', 1)->pluck('member_id');
 
             // dd($data['attendance'], date('d-m-Y'));
