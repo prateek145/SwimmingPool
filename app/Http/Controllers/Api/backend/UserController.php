@@ -176,6 +176,7 @@ class UserController extends ResponseController
      */
     public function update(Request $request, string $id)
     {
+        dd($request->all(), $id);
         $data = $request->all();
         $validator = Validator::make($data, [
             'name' => 'required',
