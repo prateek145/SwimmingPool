@@ -27,7 +27,7 @@ class AttendanceController extends ResponseController
             ->join('attendances', function($join){
                 $join->on('users.id', '=', 'attendances.member_id')
                 ->where('users.role', '!=', 'admin')
-                ->where('attendances.date', '=', date("Y-m-d"));
+                ->orWhere('attendances.date', '=', date("Y-m-d"));
             })
             ->get();
 
