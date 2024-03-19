@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\backend\Attendance;
 use App\Models\backend\Package;
 use App\Models\backend\Slot;
 use App\Models\User;
@@ -47,5 +48,31 @@ class FrontController extends Controller
         ->where("users.id",$id)
         ->first();
         return view('qrcode.show', compact('member'));
+    }
+
+    public function Attendance($id){
+
+        try {
+            $data['date'] = date('Y-m-d');
+            $member = User::find($id);
+            $data['name'] = $member->name;
+            $data['phone'] = $member->phone;
+            $data['email'] = $member->email;
+
+            $attendance = Attendance::where('date', date('Y-m-d'))->where('member_id', $id)->first();
+            if ($attendance) {
+                # code...
+                $attendance->update($data);
+            } else {
+                # code...
+                $attendance = Attendance::create($data);
+            }
+            
+
+            return redirect()->back()->with('success', 'Attendance Registered Success');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Error');
+
+        }
     }
 }

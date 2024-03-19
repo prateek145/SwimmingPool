@@ -28,6 +28,8 @@ Route::get('generateId/{id}', [FrontController::class, 'generateId'])->name('gen
 Route::get('UserDetails/{id}', [FrontController::class, 'UserDetails'])->name('UserDetails');
 Route::get('qrcode/{id}', [QrCodeController::class, 'show']);
 
+Route::get('attendance/{id}', [FrontController::class, 'Attendance'])->name('Attendance');
+
 Route::get('{any?}', function () {
     return view('welcome');
 })->where('any', '.*');

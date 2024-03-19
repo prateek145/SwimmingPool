@@ -36,7 +36,7 @@
                 @if ($member->package_status == 1)
                     <div class="col-md-6 row">
                         <label for="">Present</label>
-                        <button class="btn btn-success btn-sm">Present</button>
+                        <a href="{{route('Attendance', $member->id)}}"></a> <button class="btn btn-success btn-sm">Present</button>
                     </div>
                 @else
                     <p>{{ $member->name }} Payment Due </p>
