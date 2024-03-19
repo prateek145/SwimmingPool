@@ -30,6 +30,8 @@ class UserController extends ResponseController
                 ->where('attendances.date', '=', date("Y-m-d"));
             })
             ->get();
+
+            dd($members);
             
             $packages = Package::where('status', 1)->latest()->get();
             $slots = Slot::where('status', 1)->latest()->get();
