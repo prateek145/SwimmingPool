@@ -31,15 +31,22 @@ class AttendanceController extends ResponseController
             // })
             // ->get();
 
-            $data['members'] = DB::table('users')
-                ->leftJoin('attendances', 'users.id', '=', 'attendances.member_id')
-                ->where(function ($query) {
-                    $query->where('attendances.date', date('Y-m-d'))
-                        ->orWhereNull('attendances.date');
-                })
-                ->get();
+            $members = User::where('role', '!=', 'admin')->latest()->get();
+            $comments = Attendance::where('date', '=', date("Y-m-d"))->latest()->get();
 
-
+            foreach ($members as $key => $value) {
+                # code...
+                $attendance = Attendance::where('date',  date("Y-m-d"))->where('member_id', $value->id)->first();
+                if ($attendance) {
+                    # code...
+                    $value['comment'] = $attendance->comment;
+                } else {
+                    # code...
+                    $value['comment'] = '';
+                }
+                
+            }
+            $data['members'] = $members;
             $data['attendance'] = Attendance::whereDate('date', date('Y-m-d'))->where('attendance', 1)->pluck('member_id');
 
             // dd($data['attendance'], date('d-m-Y'));
@@ -88,7 +95,7 @@ class AttendanceController extends ResponseController
                 # code...
                 $attendance = Attendance::create($data);
             }
-
+            
 
             return $this->sendResponse($attendance, 'Allocate Date to User Successfully', 200);
         } catch (\Exception $e) {
@@ -128,8 +135,7 @@ class AttendanceController extends ResponseController
         //
     }
 
-    public function attendance_export()
-    {
+    public function attendance_export(){
         try {
             // dd('prateek');
             $members = User::latest()->get();
@@ -160,4 +166,5 @@ class AttendanceController extends ResponseController
         $file = storage_path() . '/app/attendanceExport.xls';
         return \Response::download($file, 'attendanceExport.xls');
     }
+
 }
