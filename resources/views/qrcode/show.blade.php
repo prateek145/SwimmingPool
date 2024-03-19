@@ -11,6 +11,22 @@
 <body>
 
     <div class="container mt-4">
+        <main class="main" id="main">
+            @if (Session::has('success'))
+                <div class="alert alert-success alert-dismissible fade in show col-md-12">
+                    <strong>Success!</strong> {{ session('success') }}
+                    {{-- <button type="button" class="close" data-dismiss="alert">&times;</button> --}}
+                </div>
+            @endif
+
+            @if (Session::has('error'))
+                <div class="alert alert-danger alert-dismissible fade in show col-md-12">
+                    <strong>Error!</strong> {{ session('error') }}
+                    {{-- <button type="button" class="close" data-dismiss="alert">&times;</button> --}}
+                </div>
+            @endif
+
+        </main>
 
         <div class="card col-md-12">
             <div class="card-header">
@@ -36,7 +52,8 @@
                 @if ($member->package_status == 1)
                     <div class="col-md-6 row">
                         <label for="">Present</label>
-                        <a href="{{route('Attendance', $member->id)}}"><button class="btn btn-success btn-sm">Present</button></a> 
+                        <a href="{{ route('Attendance', $member->id) }}"><button
+                                class="btn btn-success btn-sm">Present</button></a>
                     </div>
                 @else
                     <p>{{ $member->name }} Payment Due </p>
