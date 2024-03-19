@@ -32,7 +32,7 @@ class PLaccountController extends ResponseController
             'allocate_packages.package_start_date','allocate_packages.package_end_date')
             ->get();
 
-            dd($users);
+            // dd($users);
             $data['pl_accounts'] = $pl_accounts;
             $data['users'] = $users;
             $data['url'] = Url::to('/');
