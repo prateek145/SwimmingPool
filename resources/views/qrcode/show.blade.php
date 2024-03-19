@@ -3,9 +3,9 @@
 
 <head>
     <meta charset="utf-8">
-    <title>How to Generate QR Code in Laravel 9</title>
+    <title>SwimmingPool</title>
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -17,28 +17,27 @@
                 <h2>Member Details</h2>
             </div>
             <div class="card-body">
-                Name - {{$member->name}}<br>
-                Phone - {{$member->phone}}<br>
-                Email - {{$member->email}}<br>
-                Unique Id - {{$member->unique_id}}<br>
-                Address - {{$member->address}}<br>
-                Package Name - {{$member->package_name}}<br>
-                Package Status - {{$member->package_status == 1 ? 'Active' : 'Inactive'}}<br>
-                DOJ - {{$member->doj}}<br>
-                Package Start Date - {{$member->package_start_date }}<br>
-                Package End Date - {{$member->package_end_date }}<br>
+                Name - {{ $member->name }}<br>
+                Phone - {{ $member->phone }}<br>
+                Email - {{ $member->email }}<br>
+                Unique Id - {{ $member->unique_id }}<br>
+                Address - {{ $member->address }}<br>
+                Package Name - {{ $member->package_name }}<br>
+                Package Status - {{ $member->package_status == 1 ? 'Paid' : 'Due' }}<br>
+                DOJ - {{ $member->doj }}<br>
+                Package Start Date - {{ $member->package_start_date }}<br>
+                Package End Date - {{ $member->package_end_date }}<br>
             </div>
 
             <div class="row col-md-12">
-                <div class="col-md-6 row">
-                    <label for="">Present</label>
-                    <input type="radio" name="attendance" value="1" id="">
-                </div>
-
-                <div class="col-md-6 row">
-                    <label for="">Absent</label>
-                    <input type="radio" name="attendance" value="0" id="">
-                </div>
+                @if ($member->package_status == 1)
+                    <div class="col-md-6 row">
+                        <label for="">Present</label>
+                        <input type="radio" name="attendance" value="1" id="">
+                    </div>
+                @else
+                    <p>{{ $member->name }} Payment Due </p>
+                @endif
 
 
             </div>
@@ -46,4 +45,5 @@
 
     </div>
 </body>
+
 </html>
