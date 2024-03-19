@@ -28,12 +28,11 @@ class PLaccountController extends ResponseController
             $pl_accounts = PLaccount::latest()->get();
             $users = DB::table('users')
             ->join('allocate_packages', 'allocate_packages.member_id', '=', 'users.id')
-            ->join('packages', 'packages.id', '=', 'allocate_packages.member_id')
-            ->select('packages.price', 'users.name', 'users.id', 'allocate_packages.package_name',
+            ->select('allocate_packages.package_price', 'users.name', 'users.id', 'allocate_packages.package_name',
             'allocate_packages.package_start_date','allocate_packages.package_end_date')
             ->get();
 
-            // dd($users);
+            dd($users);
             $data['pl_accounts'] = $pl_accounts;
             $data['users'] = $users;
             $data['url'] = Url::to('/');

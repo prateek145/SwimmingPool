@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('member_name')->nullable();
             $table->integer('package_id')->nullable();
             $table->string('package_name')->nullable();
+            $table->string('package_price')->nullable();
             $table->integer('package_status')->nullable();
             $table->date('doj')->nullable();
             $table->date('package_start_date')->nullable();
