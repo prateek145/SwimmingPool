@@ -26,6 +26,7 @@ class UserController extends ResponseController
             $members = DB::table('users')
             ->where('role', '!=', 'admin')
             ->join('attendances', 'attendances.member_id', '==', 'users.id')
+            ->where('date', '==', date("Y-m-d"))
             ->latest()->get();
 
             $packages = Package::where('status', 1)->latest()->get();
