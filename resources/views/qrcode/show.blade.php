@@ -23,6 +23,8 @@
                 Unique Id - {{ $member->unique_id }}<br>
                 Address - {{ $member->address }}<br>
                 Package Name - {{ $member->package_name }}<br>
+                Slot Start Time - {{ $member->slot_start_time }}<br>
+                Slot End Time - {{ $member->slot_end_time }}<br>
                 Package Status - {{ $member->package_status == 1 ? 'Paid' : 'Due' }}<br>
                 DOJ - {{ $member->doj }}<br>
                 Package Start Date - {{ $member->package_start_date }}<br>
