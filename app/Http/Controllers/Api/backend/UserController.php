@@ -24,12 +24,12 @@ class UserController extends ResponseController
     {
         try {
             $members = DB::table('users')
-            ->where('role', '!=', 'admin')
             ->join('attendances', function($join){
-                $join->on('attendances.member_id', '=', 'users.id')
+                $join->on('users.id', '=', 'attendances.member_id')
+                ->where('users.role', '!=', 'admin')
                 ->where('attendances.date', '=', date("Y-m-d"));
             })
-            ->latest()->get();
+            ->get();
             
             $packages = Package::where('status', 1)->latest()->get();
             $slots = Slot::where('status', 1)->latest()->get();
