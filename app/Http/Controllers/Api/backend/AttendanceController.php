@@ -24,8 +24,13 @@ class AttendanceController extends ResponseController
     {
         try {
             $data['members'] = DB::table('users')
-            ->join('attendances', 'attendances.member_id', '=', 'users.id')
+            ->join('attendances', function($join){
+                $join->on('users.id', '=', 'attendances.member_id')
+                ->where('users.role', '!=', 'admin')
+                ->where('attendances.date', '=', date("Y-m-d"));
+            })
             ->get();
+
             $data['attendance'] = Attendance::whereDate('date', date('Y-m-d'))->where('attendance', 1)->pluck('member_id');
 
             // dd($data['attendance'], date('d-m-Y'));

@@ -10,7 +10,6 @@ use App\Models\backend\AllocatePackage;
 use App\Models\backend\member_slot;
 use App\Models\backend\Package;
 use App\Models\backend\Slot;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
@@ -23,16 +22,7 @@ class UserController extends ResponseController
     public function index()
     {
         try {
-            $members = DB::table('users')
-            ->join('attendances', function($join){
-                $join->on('users.id', '=', 'attendances.member_id')
-                ->where('users.role', '!=', 'admin')
-                ->where('attendances.date', '=', date("Y-m-d"));
-            })
-            ->get();
-
-            dd($members);
-            
+            $members = User::where('status', 1)->where('role', '!=', 'admin')->latest()->get();
             $packages = Package::where('status', 1)->latest()->get();
             $slots = Slot::where('status', 1)->latest()->get();
 
