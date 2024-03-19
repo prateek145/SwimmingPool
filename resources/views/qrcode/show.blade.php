@@ -16,7 +16,7 @@
             <div class="card-header">
                 <h2>Member Details</h2>
             </div>
-            {{dd($member)}}
+            {{-- {{dd($member)}} --}}
             <div class="card-body">
                 Name - {{ $member->name }}<br>
                 Phone - {{ $member->phone }}<br>
