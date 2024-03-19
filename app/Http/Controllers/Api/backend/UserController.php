@@ -100,7 +100,6 @@ class UserController extends ResponseController
 
             ];
             $package_data['package_name'] = $package->name;
-            $package_data['package_price'] = $package->price;
             $package_data['member_name'] = $member->name;
             $package_data['doj'] = date("Y-m-d");
             $package_data['package_status'] = 0;
@@ -176,7 +175,6 @@ class UserController extends ResponseController
      */
     public function update(Request $request, string $id)
     {
-        dd($request->all(), $id);
         $data = $request->all();
         $validator = Validator::make($data, [
             'name' => 'required',
@@ -191,68 +189,67 @@ class UserController extends ResponseController
             return response(['error' => $validator->errors(),  'responseCode' => 403]);
         }
 
-        // dd($data);
-        unset($data['package_id']);
-        unset($data['slot_id']);
-        $member = User::find($id);
-        if ($request->image) {
-            # code...
-            $base64_image = $request->image; // your base64 encoded
-            @[$type, $file_data] = explode(';', $base64_image);
-            @[, $file_data] = explode(',', $file_data);
-            $imageName = time() . '.' . 'png';
-            // file_put_contents($storagePath, base64_decode($file_data));
-            Storage::disk('public')->put($imageName, base64_decode($file_data));
-            $data['image'] = $imageName;
-        }
-
-        if ($request->document) {
-            # code...
-            $base64_document = $request->document; // your base64 encoded
-            @[$type, $file_data] = explode(';', $base64_document);
-            @[, $file_data] = explode(',', $file_data);
-            $documentName = time() . time() . '.' . 'png';
-            // file_put_contents($storagePath, base64_decode($file_data));
-            Storage::disk('public')->put($documentName, base64_decode($file_data));
-            $data['document'] = $documentName;
-        }
-
-
-        //allocate package
-        $package = Package::find($request->package_id);
-        $allocate_package = AllocatePackage::where('member_id', $member->id)->first();
-        $package_data = [
-            'member_id' => $member->id,
-            'package_id' => $package->id,
-
-        ];
-        $package_data['package_name'] = $package->name;
-        $package_data['package_price'] = $package->price;
-        $package_data['member_name'] = $member->name;
-        $package_data['package_status'] = 0;
-        $package_data['package_start_date'] = date("Y-m-d");
-        $package_data['package_end_date'] = date("Y-m-d", strtotime($allocate_package->package_end_date. '+'. $package->days .'days'));
-
-        $allocate_package->update($package_data);
-
-
-        //allocate slot
-        $slot = Slot::find($request->slot_id);
-        $slot_data = [
-            'member_id' => $member->id,
-            'slot_id' => $slot->id,
-
-        ];
-        $slot_data['slot_start_time'] = $slot->start_time;
-        $slot_data['slot_end_time'] = $slot->end_time;
-        $slot_data['member_name'] = $member->name;
-        $allocate_slot = member_slot::where('member_id', $member->id)->first();
-        $allocate_slot->update($slot_data);
-
-
-        $member->update($data);
-        return $this->sendResponse($member, 'Member Updated Successfully', 200);
         try {
+            // dd($data);
+            unset($data['package_id']);
+            unset($data['slot_id']);
+            $member = User::find($id);
+            if ($request->image) {
+                # code...
+                $base64_image = $request->image; // your base64 encoded
+                @[$type, $file_data] = explode(';', $base64_image);
+                @[, $file_data] = explode(',', $file_data);
+                $imageName = time() . '.' . 'png';
+                // file_put_contents($storagePath, base64_decode($file_data));
+                Storage::disk('public')->put($imageName, base64_decode($file_data));
+                $data['image'] = $imageName;
+            }
+
+            if ($request->document) {
+                # code...
+                $base64_document = $request->document; // your base64 encoded
+                @[$type, $file_data] = explode(';', $base64_document);
+                @[, $file_data] = explode(',', $file_data);
+                $documentName = time() . time() . '.' . 'png';
+                // file_put_contents($storagePath, base64_decode($file_data));
+                Storage::disk('public')->put($documentName, base64_decode($file_data));
+                $data['document'] = $documentName;
+            }
+
+
+            //allocate package
+            $package = Package::find($request->package_id);
+            $allocate_package = AllocatePackage::where('member_id', $member->id)->first();
+            $package_data = [
+                'member_id' => $member->id,
+                'package_id' => $package->id,
+
+            ];
+            $package_data['package_name'] = $package->name;
+            $package_data['member_name'] = $member->name;
+            $package_data['package_status'] = 0;
+            $package_data['package_start_date'] = date("Y-m-d");
+            $package_data['package_end_date'] = date("Y-m-d", strtotime($allocate_package->package_end_date. '+'. $package->days .'days'));
+
+            $allocate_package->update($package_data);
+
+
+            //allocate slot
+            $slot = Slot::find($request->slot_id);
+            $slot_data = [
+                'member_id' => $member->id,
+                'slot_id' => $slot->id,
+
+            ];
+            $slot_data['slot_start_time'] = $slot->start_time;
+            $slot_data['slot_end_time'] = $slot->end_time;
+            $slot_data['member_name'] = $member->name;
+            $allocate_slot = member_slot::where('member_id', $member->id)->first();
+            $allocate_slot->update($slot_data);
+
+
+            $member->update($data);
+            return $this->sendResponse($member, 'Member Updated Successfully', 200);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage(), [], 402);
         }
