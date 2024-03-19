@@ -23,7 +23,9 @@ class AttendanceController extends ResponseController
     public function index()
     {
         try {
-            $data['members'] = User::where('role', '!=', 'admin')->get();
+            $data['members'] = DB::table('users')
+            ->join('attendances', 'attendances.member_id', '=', 'users.id')
+            ->get();
             $data['attendance'] = Attendance::whereDate('date', date('Y-m-d'))->where('attendance', 1)->pluck('member_id');
 
             // dd($data['attendance'], date('d-m-Y'));
