@@ -100,6 +100,7 @@ class UserController extends ResponseController
 
             ];
             $package_data['package_name'] = $package->name;
+            $package_data['package_price'] = $package->price;
             $package_data['member_name'] = $member->name;
             $package_data['doj'] = date("Y-m-d");
             $package_data['package_status'] = 0;
@@ -226,6 +227,8 @@ class UserController extends ResponseController
 
             ];
             $package_data['package_name'] = $package->name;
+            $package_data['package_price'] = $package->price;
+
             $package_data['member_name'] = $member->name;
             $package_data['package_status'] = 0;
             $package_data['package_start_date'] = date("Y-m-d");
