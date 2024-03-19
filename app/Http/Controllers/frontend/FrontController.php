@@ -43,6 +43,7 @@ class FrontController extends Controller
         // $user = User::find($id);
         $member = DB::table('users')
         ->join('allocate_packages', 'users.id','=', 'allocate_packages.member_id')
+        ->join('member_slots', 'users.id', '=','member_slots.member_id')
         ->where("users.id",$id)
         ->first();
         return view('qrcode.show', compact('member'));
