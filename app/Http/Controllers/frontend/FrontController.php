@@ -58,6 +58,8 @@ class FrontController extends Controller
             $data['name'] = $member->name;
             $data['phone'] = $member->phone;
             $data['email'] = $member->email;
+            $data['member_id'] = $id;
+            $data['attendance'] = 1;
 
             $attendance = Attendance::where('date', date('Y-m-d'))->where('member_id', $id)->first();
             if ($attendance) {
