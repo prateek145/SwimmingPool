@@ -36,7 +36,7 @@
                 @if ($member->package_status == 1)
                     <div class="col-md-6 row">
                         <label for="">Present</label>
-                        <input type="radio" name="attendance" value="1" id="">
+                        <input type="button" name="Present" class="btn btn-success btn=sm">
                     </div>
                 @else
                     <p>{{ $member->name }} Payment Due </p>
