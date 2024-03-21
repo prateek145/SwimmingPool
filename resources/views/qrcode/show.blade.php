@@ -24,7 +24,7 @@
             <tbody>
                 <tr>
                     <td style="width:30%; border:1px solid; padding:10px">
-                        <img src="{{URL::to('/backend/storage/' . $member->image) ?? ''}}" style="float: left; width: 100%;">
+                        <img src="{{URL::to('storage/' . $member->image) ?? ''}}" style="float: left; width: 100%;">
                     </td>
                     <td style="width:70%; padding-left: 20px;" >
                         <h1 style="border-bottom: 2px dotted; margin-bottom:10px ;">Membership no.:</h1>
