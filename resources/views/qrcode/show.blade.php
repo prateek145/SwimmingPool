@@ -18,13 +18,13 @@
         
             <thead>
                 <tr>
-                    <td colspan="2"><img src="{{URL::to('/backend/assets/img/1.png')}}" style="display: block; height: inherit; float: left; max-width: 20%;"> <img src="logo.png" style="display: block; height: inherit; float: right; max-width: 20%;"> </td>
+                    <td colspan="2"><img src="{{URL::to('/backend/assets/img/1.png') ?? ''}}" style="display: block; height: inherit; float: left; max-width: 20%;"> <img src="logo.png" style="display: block; height: inherit; float: right; max-width: 20%;"> </td>
                 </tr>
             </thead>
             <tbody>
                 <tr>
                     <td style="width:30%; border:1px solid; padding:10px">
-                        <img src="logo.png" style="float: left; width: 100%;">
+                        <img src="{{URL::to('/backend/assets/img/' . $member->image) ?? ''}}" style="float: left; width: 100%;">
                     </td>
                     <td style="width:70%; padding-left: 20px;" >
                         <h1 style="border-bottom: 2px dotted; margin-bottom:10px ;">Membership no.:</h1>
