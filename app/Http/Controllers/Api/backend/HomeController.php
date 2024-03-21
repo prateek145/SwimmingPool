@@ -61,4 +61,13 @@ class HomeController extends ResponseController
             return $this->sendError($e->getMessage(), [], 402);
         }
     }
+
+    public function headerIcons(){
+        try {
+            $data['icon'] = URL::to('/') . '/backend/assets/img/1.png';
+            return $this->sendResponse($data, 'Header Icons Success', 200);
+        } catch (\Exception $e) {
+            return $this->sendError($e->getMessage(), [], 402);
+        }
+    }
 }

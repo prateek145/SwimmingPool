@@ -57,4 +57,6 @@ Route::group(['prefix' => 'v1'], function(){
     Route::post('login', [LandRController::class, 'login']);
     Route::post('register', [LandRController::class, 'register']);
 
+    Route::get('headerIcons', [HomeController::class, 'header']);
+
 });
