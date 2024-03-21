@@ -47,10 +47,10 @@
 </html>
 
 <div class="card col-md-12">
-    <div class="card-header">
+    {{-- <div class="card-header">
         <h2>Member Details</h2>
     </div>
-    {{-- {{dd($member)}} --}}
+
     <div class="card-body">
         Name - {{ $member->name }}<br>
         Phone - {{ $member->phone }}<br>
@@ -64,7 +64,7 @@
         DOJ - {{ $member->doj }}<br>
         Package Start Date - {{ $member->package_start_date }}<br>
         Package End Date - {{ $member->package_end_date }}<br>
-    </div>
+    </div> --}}
 
     <div class="row col-md-12">
         @if ($member->package_status == 1)
