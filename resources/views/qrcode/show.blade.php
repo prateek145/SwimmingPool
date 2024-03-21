@@ -18,7 +18,7 @@
         
             <thead>
                 <tr>
-                    <td colspan="2"><img src="{{URL::to('/backend/assets/img/1.png') ?? ''}}" style="display: block; height: inherit; float: left; max-width: 20%;"> <img src="logo.png" style="display: block; height: inherit; float: right; max-width: 20%;"> </td>
+                    <td colspan="2"><img src="{{URL::to('/backend/assets/img/1.png') ?? ''}}" style="display: block; height: inherit; float: left; max-width: 20%;"> <img src="{{URL::to('/backend/assets/img/1.png') ?? ''}}" style="display: block; height: inherit; float: right; max-width: 20%;"> </td>
                 </tr>
             </thead>
             <tbody>
@@ -27,13 +27,16 @@
                         <img src="{{URL::to('storage/' . $member->image) ?? ''}}" style="float: left; width: 100%;">
                     </td>
                     <td style="width:70%; padding-left: 20px;" >
-                        <h1 style="border-bottom: 2px dotted; margin-bottom:10px ;">Membership no.:</h1>
-                        <h1 style="border-bottom: 2px dotted; margin-bottom:10px ;">Name:</h1>
+                        <h1 style="border-bottom: 2px dotted; margin-bottom:10px ;">Membership no.:{{ $member->unique_id ?? ''}}</h1>
+                        <h1 style="border-bottom: 2px dotted; margin-bottom:10px ;">Name:{{ $member->name ?? ''}}</h1>
                         <h1 style="border-bottom: 2px dotted; margin-bottom:10px ;">S/O, D/O, W/O:</h1>
-                        <h1 style="border-bottom: 2px dotted; margin-bottom:10px ;">Address:</h1>
-                        <h1 style="border-bottom: 2px dotted; margin-bottom:10px ;">Phone:</h1>
-                        <h1 style="border-bottom: 2px dotted; margin-bottom:10px ;">Time:</h1>
+                        <h1 style="border-bottom: 2px dotted; margin-bottom:10px ;">Address:{{ $member->address ?? ''}}</h1>
+                        <h1 style="border-bottom: 2px dotted; margin-bottom:10px ;">Phone:{{ $member->phone }}</h1>
+                        <h1 style="border-bottom: 2px dotted; margin-bottom:10px ;">Time:{{ $member->slot_start_time - $member->slot_end_time}}</h1>
                         <h1 style="border-bottom: 2px dotted; margin-bottom:10px ;">Days:</h1>
+                        <h1 style="border-bottom: 2px dotted; margin-bottom:10px ;">Payment:{{ $member->package_status == 1 ? 'Paid' : 'Due' }}</h1>
+                        <h1 style="border-bottom: 2px dotted; margin-bottom:10px ;">DOJ: {{ $member->doj ?? '' }}</h1>
+                       
                     </td>
                 </tr>
             </tbody>
