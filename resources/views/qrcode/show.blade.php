@@ -18,7 +18,7 @@
         
             <thead>
                 <tr>
-                    <td colspan="2"><img src="{{URL::to('/backend/assets/img.1.png')}}" style="display: block; height: inherit; float: left; max-width: 20%;"> <img src="logo.png" style="display: block; height: inherit; float: right; max-width: 20%;"> </td>
+                    <td colspan="2"><img src="{{URL::to('/backend/assets/img/1.png')}}" style="display: block; height: inherit; float: left; max-width: 20%;"> <img src="logo.png" style="display: block; height: inherit; float: right; max-width: 20%;"> </td>
                 </tr>
             </thead>
             <tbody>
