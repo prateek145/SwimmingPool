@@ -62,7 +62,7 @@ class HomeController extends ResponseController
         }
     }
 
-    public function headerIcons(){
+    public function header(){
         try {
             $data['icon'] = URL::to('/') . '/backend/assets/img/1.png';
             return $this->sendResponse($data, 'Header Icons Success', 200);
