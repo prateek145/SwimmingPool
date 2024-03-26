@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Validator;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\TransactionExport;
 use App\Models\backend\AllocatePackage;
+use App\Models\backend\member_slot;
 use App\Models\backend\Package;
+use App\Models\backend\Slot;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
@@ -110,7 +112,10 @@ class PLaccountController extends ResponseController
             $users = User::latest()->get();
             $data['pl_account'] = $pl_account;
             $data['users'] = $users;
-            dd($data);
+            $allocate_package = AllocatePackage::where('member_id', $pl_account->user_id)->first();
+            $slot = member_slot::where('member_id',$pl_account->user_id)->first();
+            $data['slot'] = $slot;
+            $data['package'] = $allocate_package;
             return $this->sendResponse($data, 'P&L account Fetched Successfully', 200);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage(), [], 402);
