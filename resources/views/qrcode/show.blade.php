@@ -18,7 +18,7 @@
         
             <thead>
                 <tr>
-                    <td colspan="2"><img src="{{URL::to('/backend/assets/img/1.png') ?? ''}}" style="display: block; height: inherit; float: left; max-width: 20%;">      {{ QrCode::size(200)->generate(url($data['url'] . '/UserDetails/' . $member->id ?? "")) }} > </td>
+                    <td colspan="2"><img src="{{URL::to('/backend/assets/img/1.png') ?? ''}}" style="display: block; height: inherit; float: left; max-width: 20%;">     <p style="display: block; height: inherit; float: left; max-width: 20%;">{{ QrCode::size(200)->generate(url($data['url'] . '/UserDetails/' . $member->id ?? "")) }}</p> </td>
                 </tr>
             </thead>
             <tbody>
