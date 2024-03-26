@@ -33,7 +33,7 @@
                         <h1 style="border-bottom: 2px dotted; margin-bottom:10px ;">Address:{{ $member->address ?? ''}}</h1>
                         <h1 style="border-bottom: 2px dotted; margin-bottom:10px ;">Phone:{{ $member->phone }}</h1>
                         <h1 style="border-bottom: 2px dotted; margin-bottom:10px ;">Time:{{ $member->slot_start_time . " - " . $member->slot_end_time}}</h1>
-                        <h1 style="border-bottom: 2px dotted; margin-bottom:10px ;">Days:</h1>
+                        <h1 style="border-bottom: 2px dotted; margin-bottom:10px ;">Package Name: {{$member->package_name}}</h1>
                         <h1 style="border-bottom: 2px dotted; margin-bottom:10px ;">Payment:{{ $member->package_status == 1 ? 'Paid' : 'Due' }}</h1>
                         <h1 style="border-bottom: 2px dotted; margin-bottom:10px ;">DOJ: {{ $member->doj ?? '' }}</h1>
                        
