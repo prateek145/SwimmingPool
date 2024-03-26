@@ -47,7 +47,9 @@ class FrontController extends Controller
         ->join('member_slots', 'users.id', '=','member_slots.member_id')
         ->where("users.id",$id)
         ->first();
-        return view('qrcode.show', compact('member'));
+        $data['url'] = URL::to('/');
+
+        return view('qrcode.show', compact('member', 'data'));
     }
 
     public function Attendance($id){
