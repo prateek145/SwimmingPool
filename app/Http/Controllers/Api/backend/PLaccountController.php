@@ -110,7 +110,7 @@ class PLaccountController extends ResponseController
             $users = User::latest()->get();
             $data['pl_account'] = $pl_account;
             $data['users'] = $users;
-            // dd($data);
+            dd($data);
             return $this->sendResponse($data, 'P&L account Fetched Successfully', 200);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage(), [], 402);
