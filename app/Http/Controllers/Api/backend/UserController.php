@@ -185,6 +185,7 @@ class UserController extends ResponseController
             'phone' => 'required|unique:users,phone,' . $id . "'",
             'address' => 'required',
             'dob' => 'required',
+            'emergency_phone' => 'required',
             'status' => 'required',
             'package_id' => 'required',
             'slot_id' => 'required',

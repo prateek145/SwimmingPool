@@ -41,7 +41,8 @@ class SlotController extends ResponseController
             'name' => 'required|unique:slots',
             'start_time' => 'required|date_format:H:i',
             'end_time' => 'required|date_format:H:i|after:time_start',
-            'status' => 'required'
+            'status' => 'required',
+            'cycle' => 'required'
         ]);
         if ($validator->fails()) {
             return response(['error' => $validator->errors(),  'responseCode' => 403]);
@@ -87,7 +88,8 @@ class SlotController extends ResponseController
             'name' => 'required|unique:slots,name,' . $id .  "'",
             'start_time' => 'required|date_format:H:i:s',
             'end_time' => 'required|date_format:H:i:s|after:time_start',
-            'status' => 'required'
+            'status' => 'required',
+            'cycle' => 'required'
         ]);
         if ($validator->fails()) {
             return response(['error' => $validator->errors(),  'responseCode' => 403]);

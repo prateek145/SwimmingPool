@@ -9,6 +9,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Api\backend\ResponseController;
+use App\Models\backend\AllocatePackage;
+use App\Models\backend\member_slot;
 use App\Models\backend\PLaccount;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\URL;
@@ -55,6 +57,14 @@ class HomeController extends ResponseController
             $data1['unique_id'] = $user->unique_id;
             $data1['address'] = $user->address;
             $data1['date'] = date('Y-m-d');
+            
+            
+            $allocate_package = AllocatePackage::where('member_id', $id)->first();
+            $slot = member_slot::where('member_id',$id)->first();
+            $data1['slot'] = $slot;
+            $data1['package'] = $allocate_package;
+            $data1['url'] = URL::to('/backend/assets/img/1.png') ?? '';
+
             // dd($data1, $id);
             return $this->sendResponse($data1, 'Allocate Packages Fetched Successfully', 200);
         } catch (\Exception $e) {
@@ -62,7 +72,8 @@ class HomeController extends ResponseController
         }
     }
 
-    public function header(){
+    public function header()
+    {
         try {
             $data['icon'] = URL::to('/') . '/backend/assets/img/1.png';
             return $this->sendResponse($data, 'Header Icons Success', 200);

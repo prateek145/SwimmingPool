@@ -116,6 +116,8 @@ class PLaccountController extends ResponseController
             $slot = member_slot::where('member_id',$pl_account->user_id)->first();
             $data['slot'] = $slot;
             $data['package'] = $allocate_package;
+            $data['url'] = URL::to('/backend/assets/img/1.png') ?? '';
+
             return $this->sendResponse($data, 'P&L account Fetched Successfully', 200);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage(), [], 402);
