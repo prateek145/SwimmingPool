@@ -23,6 +23,7 @@ class HomeController extends ResponseController
         try {
             $members = DB::table('users')
                 ->where('users.role', '!=', 'admin')
+                ->orderBy('users.created_at', 'desc')
                 // ->latest()
                 ->join('allocate_packages', 'users.id', 'allocate_packages.member_id')
                 ->join('member_slots', 'users.id', 'member_slots.member_id')
