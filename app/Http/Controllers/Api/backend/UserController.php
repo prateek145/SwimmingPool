@@ -84,13 +84,16 @@ class UserController extends ResponseController
 
             if ($request->document) {
                 # code...
-                $base64_document = $request->document; // your base64 encoded
-                @[$type, $file_data] = explode(';', $base64_document);
-                @[, $file_data] = explode(',', $file_data);
-                $documentName = time() . time() . '.' . 'png';
-                // file_put_contents($storagePath, base64_decode($file_data));
-                Storage::disk('public')->put($documentName, base64_decode($file_data));
-                $data['document'] = $documentName;
+                foreach ($request->document as $key => $value) {
+                    # code...
+                    $base64_document = $value; // your base64 encoded
+                    @[$type, $file_data] = explode(';', $base64_document);
+                    @[, $file_data] = explode(',', $file_data);
+                    $documentName = time() . time() . '.' . 'png';
+                    // file_put_contents($storagePath, base64_decode($file_data));
+                    Storage::disk('public')->put($documentName, base64_decode($file_data));
+                    $data['document'] += $documentName;
+                }
             }
 
             $member = User::create($data);
