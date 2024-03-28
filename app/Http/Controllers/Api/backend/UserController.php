@@ -152,10 +152,10 @@ class UserController extends ResponseController
                 $user->image = URL::to('/') . '/storage/' . $user->image;
             }
 
+            dd($user->document);
             if ($user->document) {
                 # code...
                 $documentArray = [];
-                dd(json_decode($user->document));
                 foreach (json_decode($user->document) as $key => $value) {
                     # code...
                     array_push($documentArray,URL::to('/') . '/storage/' . $value);
