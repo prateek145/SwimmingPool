@@ -14,6 +14,7 @@ function MemberCreate() {
     const [slots, set_slots] = useState([]);
     const [packages, set_packages] = useState([]);
     const [name, set_name] = useState('');
+    const [g_name, set_g_name] = useState('');
     const [email, set_email] = useState('');
     const [phone, set_phone] = useState('');
     const [image, set_image] = useState('');
@@ -22,6 +23,7 @@ function MemberCreate() {
     const [slot_id, set_slot_id] = useState('');
     const [address, set_address] = useState('');
     const [name_error, set_name_error] = useState([]);
+    const [g_name_error, set_g_name_error] = useState([]);
     const [email_error, set_email_error] = useState([]);
     const [package_id_error, set_package_id_error] = useState([]);
     const [slot_id_error, set_slot_id_error] = useState([]);
@@ -55,9 +57,11 @@ function MemberCreate() {
         set_package_id_error([]);
         set_slot_id_error([]);
         set_address_error([]);
+        set_g_name_error([]);
 
         var result = await axios.post(baseURL, {
             name: name,
+            g_name: g_name,
             phone: phone,
             email: email,
             image, image,
@@ -72,6 +76,7 @@ function MemberCreate() {
         if (result.data.responseCode == 200) {
             toast.success("Success!! Package has been Created.", { position: "bottom-right" });
             set_name("");
+            set_g_name("");
             set_phone("");
             set_email("");
             set_status("");
@@ -82,6 +87,7 @@ function MemberCreate() {
 
         } else if (result.data.responseCode == 403) {
             set_name_error(result.data.error.name);
+            set_g_name_error(result.data.error.g_name);
             set_phone_error(result.data.error.phone);
             set_email_error(result.data.error.email);
             set_status_error(result.data.error.status);
@@ -218,8 +224,20 @@ function MemberCreate() {
                                 <div className="card-body">
                                     <h5 className="card-title">Add Members Create</h5>
                                     <form className="row g-3">
-                                        <div className="col-12">
+                                        <div className="col-6">
                                             <label htmlFor="inputNanme4" className="form-label">Name</label>
+                                            <input type="text" className="form-control" value={name} onChange={(e) => { set_name(e.target.value) }} id="inputNanme4" />
+                                            {name_error ? (
+                                                name_error.map((item, key) => {
+                                                    // console.log(item);
+                                                    return <li className="text-danger fw-bold" key={key}>{item}</li>
+                                                })
+                                            ) : ""}
+
+                                        </div>
+
+                                        <div className="col-6">
+                                            <label htmlFor="inputNanme4" className="form-label">Guardian Name</label>
                                             <input type="text" className="form-control" value={name} onChange={(e) => { set_name(e.target.value) }} id="inputNanme4" />
                                             {name_error ? (
                                                 name_error.map((item, key) => {

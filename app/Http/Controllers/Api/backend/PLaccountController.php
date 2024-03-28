@@ -157,7 +157,6 @@ class PLaccountController extends ResponseController
             $data['name'] = $user->name;
             $data['phone'] = $user->phone;
             $data['email'] = $user->email;
-
             $pl_account->update($data);
             return $this->sendResponse($pl_account, 'P&L account Updated Successfully', 200);
         } catch (\Exception $e) {

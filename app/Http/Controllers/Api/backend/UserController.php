@@ -50,8 +50,10 @@ class UserController extends ResponseController
     public function store(Request $request)
     {
         $data = $request->all();
+        // dd($data);
         $validator = Validator::make($data, [
             'name' => 'required',
+            'g_name' => 'required',
             'email' => 'required|unique:users',
             'phone' => 'required|unique:users',
             'address' => 'required',
@@ -68,6 +70,7 @@ class UserController extends ResponseController
         try {
             // dd($request->all());
             unset($data['package_id']);
+            unset($data['document']);
             unset($data['slot_id']);
             $data['role'] = 'member';
             $data['unique_id'] = 'MSM0000' . count(User::all()) + 1;
@@ -84,18 +87,19 @@ class UserController extends ResponseController
 
             if ($request->document) {
                 # code...
+                $documentArray = [];
                 foreach ($request->document as $key => $value) {
                     # code...
                     $base64_document = $value; // your base64 encoded
                     @[$type, $file_data] = explode(';', $base64_document);
                     @[, $file_data] = explode(',', $file_data);
-                    $documentName = time() . time() . '.' . 'png';
+                    $documentName = time() . time() . $key . '.' . 'png';
                     // file_put_contents($storagePath, base64_decode($file_data));
                     Storage::disk('public')->put($documentName, base64_decode($file_data));
-                    $data['document'] += $documentName;
+                    array_push($documentArray, $documentName);
                 }
+                $data['document'] = json_encode($documentArray);
             }
-
             $member = User::create($data);
             //allocate package
             $package = Package::find($request->package_id);
@@ -110,7 +114,7 @@ class UserController extends ResponseController
             $package_data['doj'] = date("Y-m-d");
             $package_data['package_status'] = 0;
             $package_data['package_start_date'] = date("Y-m-d");
-            $package_data['package_end_date'] = date("Y-m-d", strtotime('+'. $package->days .'days'));
+            $package_data['package_end_date'] = date("Y-m-d", strtotime('+' . $package->days . 'days'));
             // dd($package_data);
             $allocate_packages = AllocatePackage::create($package_data);
 
@@ -128,6 +132,7 @@ class UserController extends ResponseController
             // dd($data);
             return $this->sendResponse($member, 'Member Saved Successfully', 200);
         } catch (\Exception $e) {
+            // dd($e->getMessage());
             return $this->sendError($e->getMessage(), [], 402);
         }
     }
@@ -144,12 +149,17 @@ class UserController extends ResponseController
             $slot = Slot::find($user->slot->slot_id);
             if ($user->image) {
                 # code...
-                $user->image = URL::to('/') . '/storage/'. $user->image ;
+                $user->image = URL::to('/') . '/storage/' . $user->image;
             }
 
             if ($user->document) {
                 # code...
-                $user->document = URL::to('/') . '/storage/'. $user->document ;
+                $documentArray = [];
+                foreach (json_decode($user->document) as $key => $value) {
+                    # code...
+                    array_push($documentArray,URL::to('/') . '/storage/' . $value);
+                }
+                $user->document = $documentArray;
             }
 
             //packages and slots
@@ -163,6 +173,8 @@ class UserController extends ResponseController
             $data['package'] = $package;
             $data['slot'] = $slot;
             $data['maxi_pool'] = asset('public/backend/assets/img/maxipool.jpg');
+
+            // dd($data);
             return $this->sendResponse($data, 'Member Fetched Successfully', 200);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage(), [], 402);
@@ -182,8 +194,10 @@ class UserController extends ResponseController
     public function update(Request $request, string $id)
     {
         $data = $request->all();
+        // dd($data);
         $validator = Validator::make($data, [
             'name' => 'required',
+            'g_name' => 'required',
             'email' => 'required|unique:users,email,' . $id . "'",
             'phone' => 'required|unique:users,phone,' . $id . "'",
             'address' => 'required',
@@ -201,6 +215,7 @@ class UserController extends ResponseController
             // dd($data);
             unset($data['package_id']);
             unset($data['slot_id']);
+        
             $member = User::find($id);
             if ($request->image) {
                 # code...
@@ -213,18 +228,25 @@ class UserController extends ResponseController
                 $data['image'] = $imageName;
             }
 
+            // dd($request->document);
             if ($request->document) {
                 # code...
-                $base64_document = $request->document; // your base64 encoded
-                @[$type, $file_data] = explode(';', $base64_document);
-                @[, $file_data] = explode(',', $file_data);
-                $documentName = time() . time() . '.' . 'png';
-                // file_put_contents($storagePath, base64_decode($file_data));
-                Storage::disk('public')->put($documentName, base64_decode($file_data));
-                $data['document'] = $documentName;
+                unset($data['document']);
+                $documentArray = [];
+                foreach ($request->document as $key => $value) {
+                    # code...
+                    $base64_document = $value; // your base64 encoded
+                    @[$type, $file_data] = explode(';', $base64_document);
+                    @[, $file_data] = explode(',', $file_data);
+                    $documentName = time() . time() . $key . '.' . 'png';
+                    // file_put_contents($storagePath, base64_decode($file_data));
+                    Storage::disk('public')->put($documentName, base64_decode($file_data));
+                    array_push($documentArray, $documentName);
+                }
+                $data['document'] = json_encode($documentArray);
             }
 
-
+            // dd($data);
             //allocate package
             $package = Package::find($request->package_id);
             $allocate_package = AllocatePackage::where('member_id', $member->id)->first();
@@ -239,7 +261,7 @@ class UserController extends ResponseController
             $package_data['member_name'] = $member->name;
             $package_data['package_status'] = 0;
             $package_data['package_start_date'] = date("Y-m-d");
-            $package_data['package_end_date'] = date("Y-m-d", strtotime($allocate_package->package_end_date. '+'. $package->days .'days'));
+            $package_data['package_end_date'] = date("Y-m-d", strtotime($allocate_package->package_end_date . '+' . $package->days . 'days'));
 
             $allocate_package->update($package_data);
 
@@ -257,7 +279,7 @@ class UserController extends ResponseController
             $allocate_slot = member_slot::where('member_id', $member->id)->first();
             $allocate_slot->update($slot_data);
 
-
+// dd($data);
             $member->update($data);
             return $this->sendResponse($member, 'Member Updated Successfully', 200);
         } catch (\Exception $e) {

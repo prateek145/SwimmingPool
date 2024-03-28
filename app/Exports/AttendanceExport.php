@@ -94,7 +94,7 @@ class AttendanceExport implements FromCollection, WithHeadings, WithMapping, Wit
             $taskQueuey->email ?? '',
             $taskQueuey->date ?? '',
             $taskQueuey->attendance == 1 ? 'Present' : 'Absent',
-            $taskQueuey->member_id ?? ''
+            $taskQueuey->member_id ?? '' 
         ];
         return $row;
     }
