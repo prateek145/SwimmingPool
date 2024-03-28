@@ -17,6 +17,7 @@ use App\Models\backend\Slot;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class PLaccountController extends ResponseController
 {
@@ -117,7 +118,7 @@ class PLaccountController extends ResponseController
             $data['slot'] = $slot;
             $data['package'] = $allocate_package;
             $data['url'] = URL::to('/backend/assets/img/1.png') ?? '';
-            $data['qrcode'] =base64_encode(\QrCode::size(200)->generate(url($data['url'] . '/UserDetails/' . $pl_account->user_id ?? "")));
+            $data['qrcode'] = base64_encode(QrCode::size(200)->generate(url($data['url'] . '/UserDetails/' . $pl_account->user_id ?? "")));
             dd($data);
 
             return $this->sendResponse($data, 'P&L account Fetched Successfully', 200);
