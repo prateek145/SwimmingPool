@@ -69,14 +69,14 @@
     </div> --}}
 
     <div class="row col-md-12">
-        @if ($member->package_status == 1)
+        @if ($member->package_status == 1 && $showBtn == true)
             <div class="col-md-6 row">
                 <label for="">Present</label>
                 <a href="{{ route('Attendance', $member->id) }}"><button
                         class="btn btn-success btn-sm">Present</button></a>
             </div>
         @else
-            <p>{{ $member->name }} Payment Due </p>
+            <p>{{ $member->name }} Payment Due / User Assign In TTS/MWF Slot.</p>
         @endif
 
 

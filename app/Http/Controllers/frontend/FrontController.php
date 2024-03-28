@@ -47,9 +47,17 @@ class FrontController extends Controller
         ->join('member_slots', 'users.id', '=','member_slots.member_id')
         ->where("users.id",$id)
         ->first();
+        $slot = Slot::find($member->slot_id);
+        $dayOfWeek = date('l');
+        $dayOfWeekCapitalized = strtolower(ucfirst(substr($dayOfWeek, 0, 1)));
+        $showBtn = false;
+        if ($slot->cycle == 'daily' || strpos($slot->cycle, $dayOfWeekCapitalized) !== false) {
+            $showBtn = true;
+        }
         $data['url'] = URL::to('/');
 
-        return view('qrcode.show', compact('member', 'data'));
+        // dd($showBtn, $slot, strpos($slot->cycle, $dayOfWeekCapitalized));
+        return view('qrcode.show', compact('member', 'data', 'showBtn'));
     }
 
     public function Attendance($id){

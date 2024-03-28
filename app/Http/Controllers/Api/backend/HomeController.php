@@ -25,6 +25,7 @@ class HomeController extends ResponseController
                 ->where('users.role', '!=', 'admin')
                 ->join('allocate_packages', 'users.id', 'allocate_packages.member_id')
                 ->join('member_slots', 'users.id', 'member_slots.member_id')
+                ->latest()
                 ->get();
             $total_members = $members->count();
             $total_packages = Package::all()->count();
