@@ -183,6 +183,7 @@ class PLaccountController extends ResponseController
     {
         // dd('prateek');
         $queryTodo = PLaccount::query();
+
         if (request()->get('export_user_id') != "null") {
             # code...
             $queryTodo->where('user_id', request()->get('export_user_id'));
