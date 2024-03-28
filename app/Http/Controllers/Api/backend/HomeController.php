@@ -23,9 +23,9 @@ class HomeController extends ResponseController
         try {
             $members = DB::table('users')
                 ->where('users.role', '!=', 'admin')
+                ->latest()
                 ->join('allocate_packages', 'users.id', 'allocate_packages.member_id')
                 ->join('member_slots', 'users.id', 'member_slots.member_id')
-                ->latest()
                 ->get();
             $total_members = $members->count();
             $total_packages = Package::all()->count();
@@ -58,10 +58,10 @@ class HomeController extends ResponseController
             $data1['unique_id'] = $user->unique_id;
             $data1['address'] = $user->address;
             $data1['date'] = date('Y-m-d');
-            
-            
+
+
             $allocate_package = AllocatePackage::where('member_id', $id)->first();
-            $slot = member_slot::where('member_id',$id)->first();
+            $slot = member_slot::where('member_id', $id)->first();
             $data1['slot'] = $slot;
             $data1['package'] = $allocate_package;
             $data1['url'] = URL::to('/backend/assets/img/1.png') ?? '';
