@@ -174,7 +174,7 @@ class UserController extends ResponseController
             $data['slot'] = $slot;
             $data['maxi_pool'] = asset('public/backend/assets/img/maxipool.jpg');
 
-            // dd($data);
+            dd($data);
             return $this->sendResponse($data, 'Member Fetched Successfully', 200);
         } catch (\Exception $e) {
             return $this->sendError($e->getMessage(), [], 402);
