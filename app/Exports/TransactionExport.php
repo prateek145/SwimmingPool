@@ -79,7 +79,7 @@ class TransactionExport implements FromCollection, WithHeadings, WithMapping, Wi
 
     public function headings(): array
     {
-        $headings = ['Sr no', 'Name', 'Phone', 'Email', 'Date', 'Amount'];
+        $headings = ['Sr no', 'Name', 'Phone', 'Email', 'Date', 'Amount', 'MemberID'];
 
         return $headings;
     }
@@ -94,6 +94,7 @@ class TransactionExport implements FromCollection, WithHeadings, WithMapping, Wi
             $taskQueuey->email ?? '',
             $taskQueuey->date ?? '',
             $taskQueuey->amount ?? '',
+            $taskQueuey->user_id ?? '',
         ];
         return $row;
     }

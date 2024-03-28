@@ -80,7 +80,7 @@ class AttendanceExport implements FromCollection, WithHeadings, WithMapping, Wit
 
     public function headings(): array
     {
-        $headings = ['Sr no', 'Name', 'Phone', 'Email', 'Date', 'Attendance'];
+        $headings = ['Sr no', 'Name', 'Phone', 'Email', 'Date', 'Attendance', 'MemberID'];
 
         return $headings;
     }
@@ -94,6 +94,7 @@ class AttendanceExport implements FromCollection, WithHeadings, WithMapping, Wit
             $taskQueuey->email ?? '',
             $taskQueuey->date ?? '',
             $taskQueuey->attendance == 1 ? 'Present' : 'Absent',
+            $taskQueuey->member_id ?? ''
         ];
         return $row;
     }
