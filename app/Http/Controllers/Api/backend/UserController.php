@@ -132,7 +132,7 @@ class UserController extends ResponseController
             // dd($data);
             return $this->sendResponse($member, 'Member Saved Successfully', 200);
         } catch (\Exception $e) {
-            // dd($e->getMessage());
+            dd($e->getMessage());
             return $this->sendError($e->getMessage(), [], 402);
         }
     }
